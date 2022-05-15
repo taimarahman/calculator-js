@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <title>Calculator</title>
+</head>
+<body>
+    <div class="container">
+        <div class="mode">
+            <button class="btn" id="day-mode"><i class="fa-solid fa-sun"></i></button>
+            <button class="btn active" id="night-mode"><i class="fa-regular fa-moon"></i></button>
+        </div>
+        <div class="show-calculation">
+            <p id="calculation-history"></p>
+            <!-- <input type="text" id="calculation"> -->
+            <h1 id="calculation"></h1>
+        </div>
+        <div class="keypad">
+            <div class="row">
+                <div class="keys func" id="reset">AC</div>
+                <div class="keys func" id="invert"><i class="fa-regular fa-plus-minus"></i></div>
+                <div class="keys func" id="mod"><i class="fa-light fa-percent"></i></div>
+                <div class="keys operator" id="divide"><i class="fa-regular fa-divide"></i></div>
+            </div>
+            <div class="row">
+                <div class="keys">7</div>
+                <div class="keys">8</div>
+                <div class="keys">9</div>
+                <div class="keys operator" id="multiply"><i class="fa-regular fa-x"></i></div>
+            </div>
+            <div class="row">
+                <div class="keys">4</div>
+                <div class="keys">5</div>
+                <div class="keys">6</div>
+                <div class="keys operator" id="minus"><i class="fa-regular fa-minus"></i></div>
+            </div>
+            
+            <div class="row">
+                <div class="keys">1</div>
+                <div class="keys">2</div>
+                <div class="keys">3</div>
+                <div class="keys operator" id="plus"><i class="fa-regular fa-plus"></i></div>
+            </div>
+            <div class="row">
+                <div class="keys" id="undo"><i class="fa-regular fa-rotate-left"></i></div>
+                <div class="keys">0</div>
+                <div class="keys">.</div>
+                <div class="keys operator" id="equals"><i class="fa-regular fa-equals"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
