@@ -88,6 +88,7 @@ p, h1, h2 {
   margin-top: 8px;
   line-height: 1em;
   font-weight: 600;
+  width: 100%;
 }
 
 .show-calculation p i {
@@ -102,6 +103,7 @@ p, h1, h2 {
   margin-top: 8px;
   line-height: 1em;
   font-weight: 600;
+  width: 100%;
 }
 
 .show-calculation h1 i {
