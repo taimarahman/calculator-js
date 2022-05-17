@@ -106,9 +106,9 @@ function reverseNumFormat(str) {
 // Operations
 
 function executeOperation(A, B, op) {
-    console.log(A,B,op);
+    // console.log(A,B,op);
     if(A != 0 && B != 0 && op != ''){
-        showHistory(B);
+        // showHistory(B);
         if(op == 'add') {
            result = addition(A,B); 
         }
@@ -143,11 +143,12 @@ function division(x,y) {
 }
 
 function assignValue(op, func, flag = true) {
-    if(op != null) {
+    if(op != null){
         if(operandA == '') {
             operandA = getFromLS(setToLS('operandA', op));
         } else {
             operandB = getFromLS(setToLS('operandB', op));
+            showHistory(operandB);
         }
     }
         
@@ -157,6 +158,14 @@ function assignValue(op, func, flag = true) {
 
     executeOperation(Number(operandA),Number(operandB),operation);
 }
+
+
+// function changeOperatorIcon(operator) {
+//     if(calcHistoryEl.lastElementChild.tagName.toLowerCase() == 'i'){
+//         calcHistoryEl.removeChild(calcHistoryEl.lastElementChild);
+//         calcHistoryEl.appendChild(operator);
+//     };
+// }
 
 // get and set from local storage
 function setToLS(storage, value) {
@@ -170,53 +179,15 @@ function getFromLS(storage) {
 
 // Operator Event listeners
 
-plusBtn.addEventListener('click', () => {
-    assignValue(operand, '', false);
-    assignValue(null, 'add');
-    operand = '';
-    showHistory(plusBtn.innerHTML);
-});
-
-minusBtn.addEventListener('click', () => {
-    assignValue(operand, '', false);
-    assignValue(null, 'subtract');
-    operand = '';
-    showHistory(minusBtn.innerHTML);
-});
-multiplyBtn.addEventListener('click', () => {
-    assignValue(operand, '', false);
-    assignValue(null, 'multiply');
-    operand = '';
-    showHistory(multiplyBtn.innerHTML);
-});
-
-divideBtn.addEventListener('click', () => {
-    assignValue(operand, '', false);
-    assignValue(null, 'divide');
-    operand = '';
-    showHistory(divideBtn.innerHTML);
-});
-
-equalsBtn.addEventListener('click', () => {
-    assignValue(operand, '', false);
-    showHistory(equalsBtn.innerHTML);
-    operandB = getFromLS(setToLS('operandB', ''));
-    operation = getFromLS(setToLS('operation', ''));
-    eraseHistory = true;
-    operand = '';
-    
-});
-
-invertBtn.addEventListener('click', () => {
-    let invertedValue = reverseNumFormat(calcEl.innerText) * -1;
-    operand = invertedValue.toString();
-    if(eraseHistory) {
-        operandA = getFromLS(setToLS('operandA', ''));
-        calcHistoryEl.innerHTML = '';
-        eraseHistory = false;
+function checkOperationState(operation, operator) {
+    if (operand != null) {
+        assignValue(operand, '', false);
+        assignValue(null, operation);
+        operand = '';
+        if(calcEl.innerHTML != '')
+            showHistory(operator);
     }
-    showCalulation(operand);
-});
+}
 
 function checkPercentState(A, B, op) {
     if(A == '' && B == '' && op == ''){ 
@@ -266,18 +237,57 @@ function getPercentage(x,y) {
     return (x*(y/100));
 }
 
-percentBtn.addEventListener('click', () => {
-    if(operand != '') {
-        checkPercentState(operandA, operandB, operation);    
-    }
-});
-
 function undo() {
     if(operand != '') {
         operand = operand.replace(/.$/, '');
         showCalulation(operand);
     }
 }
+
+plusBtn.addEventListener('click', () => {
+    checkOperationState('add', plusBtn.innerHTML);
+});
+
+minusBtn.addEventListener('click', () => {
+    checkOperationState('subtract', minusBtn.innerHTML);
+});
+multiplyBtn.addEventListener('click', () => {
+    checkOperationState('multiply', multiplyBtn.innerHTML);
+});
+
+divideBtn.addEventListener('click', () => {
+    checkOperationState('divide', divideBtn.innerHTML);
+});
+
+equalsBtn.addEventListener('click', () => {
+    assignValue(operand, '', false);
+    if(calcEl.innerHTML != '')
+        showHistory(equalsBtn.innerHTML);
+    operandB = getFromLS(setToLS('operandB', ''));
+    operation = getFromLS(setToLS('operation', ''));
+    eraseHistory = true;
+    operand = '';
+    
+});
+
+invertBtn.addEventListener('click', () => {
+    let invertedValue = reverseNumFormat(calcEl.innerText) * -1;
+    operand = invertedValue.toString();
+    if(eraseHistory) {
+        operandA = getFromLS(setToLS('operandA', ''));
+        calcHistoryEl.innerHTML = '';
+        eraseHistory = false;
+    }
+    showCalulation(operand);
+});
+
+percentBtn.addEventListener('click', () => {
+    if(operand != '') {
+        checkPercentState(operandA, operandB, operation);    
+    }
+});
+
+
 
 // button event listeners
 undoBtn.addEventListener('click', undo);
