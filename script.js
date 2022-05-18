@@ -259,7 +259,7 @@ divideBtn.addEventListener('click', () => {
     checkOperationState('divide', divideBtn.innerHTML);
 });
 
-equalsBtn.addEventListener('click', () => {
+function equalsOperation() {
     assignValue(operand, '', false);
     if(calcEl.innerHTML != '')
         showHistory(equalsBtn.innerHTML);
@@ -267,8 +267,9 @@ equalsBtn.addEventListener('click', () => {
     operation = getFromLS(setToLS('operation', ''));
     eraseHistory = true;
     operand = '';
-    
-});
+}
+
+equalsBtn.addEventListener('click', equalsOperation);
 
 invertBtn.addEventListener('click', () => {
     let invertedValue = reverseNumFormat(calcEl.innerText) * -1;
@@ -320,3 +321,24 @@ window.onload = () => {
 };
 
 
+
+window.addEventListener('keydown', event => {
+    if (event.key >= 0 && event.key <=9){
+        updateOperand(event.key);
+    }
+    else if (event.key == '+'){
+        checkOperationState('add', plusBtn.innerHTML);
+    }
+    else if (event.key == '-'){
+        checkOperationState('subtract', minusBtn.innerHTML);
+    }
+    else if (event.key == '*'){
+        checkOperationState('multiply', multiplyBtn.innerHTML);
+    }
+    else if (event.key == '/'){
+        checkOperationState('divide', divideBtn.innerHTML);
+    }
+    else if (event.key == 'Enter' || event.key == '=') {
+        equalsOperation();
+    }
+});
